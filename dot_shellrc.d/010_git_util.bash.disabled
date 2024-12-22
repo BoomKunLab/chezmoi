@@ -1,9 +1,9 @@
 # https://github.com/git/git/blob/master/contrib/completion/git-completion.bash
 if [ -f ~/.git_util/git-prompt.sh ]; then
-    source ~/.git-prompt.sh
+    source ~/.git_util/git-prompt.sh
 fi
 if [ -f ~/.git_util/git-completion.bash ]; then
-    source ~/.git-completion.bash
+    source ~/.git_util/git-completion.bash
 fi
 
 GIT_PS1_SHOWDIRTYSTATE=true

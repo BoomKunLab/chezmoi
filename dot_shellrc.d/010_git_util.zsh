@@ -5,7 +5,7 @@ fi
 
 if [ -f ~/.git_util/_git ] && [ -f ~/.git_util/git-completion.bash ]; then
     fpath=(~/.zsh $fpath)
-    zstyle ':completion:*:*:git:*' script ~/.zsh/git-completion.bash
+    zstyle ':completion:*:*:git:*' script ~/.git_util/git-completion.bash
     autoload -Uz compinit && compinit
 fi
 
