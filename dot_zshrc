@@ -1,0 +1,9 @@
+### Write your commands to ~/.shellrc.d/xxx.{sh,zsh}
+if [ -d ~/.shellrc.d ]; then
+  for i in `find ~/.shellrc.d/*.{sh,zsh} -type f | sort`; do
+    if [ -r $i ]; then
+      . $i
+    fi
+  done
+  unset i
+fi

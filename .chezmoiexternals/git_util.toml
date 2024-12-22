@@ -1,0 +1,14 @@
+[".git_util/git-completion.bash"]
+    type       = "file"
+    url        = "https://raw.github.com/git/git/master/contrib/completion/git-completion.bash"
+    executable = true
+
+[".git_util/_git"]
+    type       = "file"
+    url        = "https://raw.github.com/git/git/master/contrib/completion/git-completion.zsh"
+    executable = true
+
+[".git_util/git-prompt.sh"]
+    type       = "file"
+    url        = "https://raw.github.com/git/git/master/contrib/completion/git-prompt.sh"
+    executable = true
