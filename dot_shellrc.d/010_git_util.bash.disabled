@@ -4,11 +4,11 @@ if [ -f ~/.git_util/git-prompt.sh ]; then
 fi
 if [ -f ~/.git_util/git-completion.bash ]; then
     source ~/.git_util/git-completion.bash
+
+    GIT_PS1_SHOWDIRTYSTATE=true
+    GIT_PS1_SHOWUNTRACKEDFILES=true
+    GIT_PS1_SHOWSTASHSTATE=true
+    GIT_PS1_SHOWUPSTREAM=auto
+
+    PS1="\u \w\[\033[36m\]\$(__git_ps1)\[\033[00m\] \$ "
 fi
-
-GIT_PS1_SHOWDIRTYSTATE=true
-GIT_PS1_SHOWUNTRACKEDFILES=true
-GIT_PS1_SHOWSTASHSTATE=true
-GIT_PS1_SHOWUPSTREAM=auto
-
-PS1="\u \w\[\033[36m\]\$(__git_ps1)\[\033[00m\] \$ "
