@@ -8,6 +8,6 @@ if [ -f ~/.asdf/asdf.sh ]; then
 fi
 
 # asdf install by brew on zsh
-if [ -f /home/linuxbrew/.linuxbrew/opt/asdf/libexec/asdf.sh ]; then
-    . "/home/linuxbrew/.linuxbrew/opt/asdf/libexec/asdf.sh"
+if [ -f $HOMEBREW_PREFIX/opt/asdf/libexec/asdf.sh ]; then
+    . "$HOMEBREW_PREFIX/opt/asdf/libexec/asdf.sh"
 fi
