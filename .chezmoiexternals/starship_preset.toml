@@ -1,0 +1,43 @@
+# [".config/starship/nerd-font-symbols.toml"]
+#     type       = "file"
+#     url        = "https://starship.rs/presets/toml/nerd-font-symbols.toml"
+
+# [".config/starship/no-nerd-font.toml"]
+#     type       = "file"
+#     url        = "https://starship.rs/presets/toml/no-nerd-font.toml"
+
+# [".config/starship/bracketed-segments.toml"]
+#     type       = "file"
+#     url        = "https://starship.rs/presets/toml/bracketed-segments.toml"
+
+# [".config/starship/plain-text-symbols.toml"]
+#     type       = "file"
+#     url        = "https://starship.rs/presets/toml/plain-text-symbols.toml"
+
+# [".config/starship/no-runtime-versions.toml"]
+#     type       = "file"
+#     url        = "https://starship.rs/presets/toml/no-runtime-versions.toml"
+
+[".config/starship/no-empty-icons.toml"]
+    type       = "file"
+    url        = "https://starship.rs/presets/toml/no-empty-icons.toml"
+
+[".config/starship/pure-preset.toml"]
+    type       = "file"
+    url        = "https://starship.rs/presets/toml/pure-preset.toml"
+
+[".config/starship/pastel-powerline.toml"]
+    type       = "file"
+    url        = "https://starship.rs/presets/toml/pastel-powerline.toml"
+
+[".config/starship/tokyo-night.toml"]
+    type       = "file"
+    url        = "https://starship.rs/presets/toml/tokyo-night.toml"
+
+# [".config/starship/gruvbox-rainbow.toml"]
+#     type       = "file"
+#     url        = "https://starship.rs/presets/toml/gruvbox-rainbow.toml"
+
+[".config/starship/jetpack.toml"]
+    type       = "file"
+    url        = "https://starship.rs/presets/toml/jetpack.toml"
