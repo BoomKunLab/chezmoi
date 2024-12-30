@@ -2,13 +2,13 @@ format = """
 [](#9A348E)\
 $os\
 $username\
-[](bg:#DA627D fg:#9A348E)\
+[](bg:#DA627D fg:#9A348E)\
 $directory\
-[](fg:#DA627D bg:#FCA17D)\
+[](fg:#DA627D bg:#FCA17D)\
 $git_branch\
-[](fg:#FCA17D bg:#E3ED74)\
+[](fg:#FCA17D bg:#E3ED74)\
 $git_status\
-[](fg:#E3ED74 bg:#86BBD8)\
+[](fg:#E3ED74 bg:#86BBD8)\
 $c\
 $elixir\
 $elm\
@@ -21,12 +21,14 @@ $nodejs\
 $nim\
 $rust\
 $scala\
-[](fg:#86BBD8 bg:#06969A)\
+[](fg:#86BBD8 bg:#06969A)\
 $docker_context\
-[](fg:#06969A bg:#33658A)\
+[](fg:#06969A bg:#33658A)\
 $time\
-[ ](fg:#33658A)\
+[ ](fg:#33658A)\
 """
+
+# 
 
 # Disable the blank line at the start of the prompt
 # add_newline = false
