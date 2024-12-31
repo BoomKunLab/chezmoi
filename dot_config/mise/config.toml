@@ -1,0 +1,4 @@
+[tools]
+go = "1.23.0"
+helm = "3.14.0"
+terraform = "1.10.0"
