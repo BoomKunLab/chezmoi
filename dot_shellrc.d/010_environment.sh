@@ -6,3 +6,7 @@ HISTFILESIZE=2000
 
 # less
 export LESS='-i -M -R'
+
+if [ -d "$HOME/.managed/bin" ] ; then
+    PATH="$HOME/.managed/bin:$PATH"
+fi
