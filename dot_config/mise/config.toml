@@ -1,4 +1,9 @@
 [tools]
+# language
 go = "1.23.0"
-helm = "3.14.0"
+# tool
 terraform = "1.10.0"
+# container
+kubectl = "1.32.0"
+helm = "3.14.0"
+kind = "0.26.0"
