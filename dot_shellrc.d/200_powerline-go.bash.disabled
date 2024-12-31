@@ -1,7 +1,7 @@
-if [ -f "$GOPATH/bin/powerline-go" ]; then
+if (type powerline-go > /dev/null 2>&1); then
     function _update_ps1() {
         # PS1="$($GOPATH/bin/powerline-go -error $? -jobs $(jobs -p | wc -l))"
-        PS1="$($GOPATH/bin/powerline-go -error $? -modules venv,ssh,cwd,git,hg,jobs,root -jobs $(jobs -p | wc -l))"
+        PS1="$(powerline-go -error $? -modules venv,ssh,cwd,git,hg,jobs,root -jobs $(jobs -p | wc -l))"
 
         # Uncomment the following line to automatically clear errors after showing
         # them once. This not only clears the error for powerline-go, but also for
@@ -12,6 +12,6 @@ if [ -f "$GOPATH/bin/powerline-go" ]; then
     }
 fi
 
-if [ "$TERM" != "linux" ] && [ -f "$GOPATH/bin/powerline-go" ]; then
+if [ "$TERM" != "linux" ] && (type powerline-go > /dev/null 2>&1); then
     PROMPT_COMMAND="_update_ps1; $PROMPT_COMMAND"
 fi
