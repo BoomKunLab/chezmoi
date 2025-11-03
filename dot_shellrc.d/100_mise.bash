@@ -1,5 +1,7 @@
 # mise installed by brew on bash
 if [ -f $HOMEBREW_PREFIX/bin/mise ]; then
-    eval "$($HOMEBREW_PREFIX/bin/mise activate bash)"
-    source <($HOMEBREW_PREFIX/bin/mise completion bash)
+    eval "$(mise activate bash)"
+    # source <(mise completion bash)
 fi
+
+# mise completion bash --include-bash-completion-lib > ~/.local/share/bash-completion/completions/mise
