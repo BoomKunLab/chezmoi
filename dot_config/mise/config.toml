@@ -2,7 +2,7 @@
 # language
 go = "1.23.0"
 # tool
-terraform = "1.10.0"
+terraform = "latest"
 # container
 kubectl = "1.32.0"
 helm = "3.14.0"
