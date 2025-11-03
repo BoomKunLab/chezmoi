@@ -1,5 +1,8 @@
 [user]
-	name = BoomKunLab
+    name = BoomKunLab
 
 [alias]
 	vacuum = "!f () { git branch --merged|egrep -v '\\*|develop|main|master' | xargs git branch -d; git fetch --prune; };f"
+
+[ghq]
+    root = ~/.gitrepos
