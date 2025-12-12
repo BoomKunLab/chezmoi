@@ -1,0 +1,35 @@
+{
+  "permissions": {
+    "allow": [
+      "Shell(cd)",
+      "Shell(ls)",
+      "Shell(echo)",
+      "Shell(pwd)",
+      "Shell(cat)",
+      "Shell(head)",
+      "Shell(tail)",
+      "Shell(mkdir)",
+      "Shell(touch)",
+      "Shell(chezmoi status)",
+      "Shell(chezmoi diff)",
+      "Shell(chezmoi data)",
+      "Shell(chezmoi managed)",
+      "Shell(chezmoi cat-config)",
+      "Read(**/*)",
+      "Write(**/*)"
+    ],
+    "deny": [
+      "Shell(rm)",
+      "Shell(sudo)",
+      "Shell(chezmoi apply)",
+      "Read(.env*)",
+      "Read(**/.env*)",
+      "Read(**/*.key)",
+      "Read(**/*.pem)",
+      "Write(.env*)",
+      "Write(**/.env*)",
+      "Write(**/*.key)",
+      "Write(**/*.pem)"
+    ]
+  }
+}
