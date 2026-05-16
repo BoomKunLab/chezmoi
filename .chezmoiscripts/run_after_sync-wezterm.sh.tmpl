@@ -1,0 +1,22 @@
+#!/bin/sh
+set -eu
+
+src="{{ .chezmoi.sourceDir }}/dot_config/wezterm/wezterm.lua"
+dst="/mnt/c/Users/{{ .win_user }}/.wezterm.lua"
+
+if [ ! -f "$src" ]; then
+  echo "wezterm sync skipped: source not found: $src" >&2
+  exit 0
+fi
+
+if [ ! -d "$(dirname "$dst")" ]; then
+  echo "wezterm sync skipped: destination directory not found: $(dirname "$dst")" >&2
+  exit 0
+fi
+
+if [ -f "$dst" ] && cmp -s "$src" "$dst"; then
+  exit 0
+fi
+
+cp "$src" "$dst"
+echo "synced wezterm config to $dst"
