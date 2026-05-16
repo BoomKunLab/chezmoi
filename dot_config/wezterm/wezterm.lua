@@ -267,6 +267,95 @@ local function show_color_scheme_selector(window, pane)
 	)
 end
 
+local function basename(value)
+	return (value or ""):gsub("(.*[/\\])(.*)", "%2")
+end
+
+local function tab_title(tab_info)
+	local title = tab_info.tab_title
+	if title and #title > 0 then
+		return title
+	end
+	return tab_info.active_pane and tab_info.active_pane.title or "shell"
+end
+
+local function tab_has_unseen_output(tab_info)
+	for _, pane in ipairs(tab_info.panes or {}) do
+		if pane.has_unseen_output then
+			return true
+		end
+	end
+	return false
+end
+
+local function tab_icon(tab_info)
+	local pane = tab_info.active_pane or {}
+	local process_name = basename(pane.foreground_process_name):lower()
+	local title = tab_title(tab_info):lower()
+	local domain_name = pane.domain_name or ""
+
+	if domain_name:find("WSL") then
+		return wezterm.nerdfonts.cod_terminal_linux or ""
+	end
+	if process_name:find("vim") or title:find("vim") then
+		return wezterm.nerdfonts.custom_vim or ""
+	end
+	if process_name:find("git") then
+		return wezterm.nerdfonts.dev_git or ""
+	end
+	if process_name:find("ssh") then
+		return wezterm.nerdfonts.md_server_network or "󰒋"
+	end
+	if process_name:find("nu") then
+		return wezterm.nerdfonts.cod_terminal or ""
+	end
+	if process_name:find("zsh") or process_name:find("bash") then
+		return wezterm.nerdfonts.cod_terminal or ""
+	end
+	return wezterm.nerdfonts.md_console or "󰞷"
+end
+
+local function format_tab_title(tab, hover, max_width)
+	local title = tab_title(tab)
+	local icon = tab_icon(tab)
+	local background = active_scheme.brightBlack
+	local foreground = active_scheme.foreground
+	local edge_background = active_scheme.background
+	local edge_foreground = background
+
+	if tab.is_active then
+		background = active_scheme.purple
+		foreground = active_scheme.white
+	elseif tab_has_unseen_output(tab) then
+		background = active_scheme.yellow
+		foreground = active_scheme.black
+	elseif hover then
+		background = active_scheme.blue
+		foreground = active_scheme.background
+	elseif tab.is_last_active then
+		background = active_scheme.green
+		foreground = active_scheme.white
+	end
+
+	edge_foreground = background
+	local content_width = math.max(1, max_width - 5)
+	title = wezterm.truncate_right(title, content_width)
+
+	return {
+		{ Background = { Color = edge_background } },
+		{ Foreground = { Color = edge_foreground } },
+		{ Text = wezterm.nerdfonts.pl_right_hard_divider or "" },
+		{ Background = { Color = background } },
+		{ Foreground = { Color = foreground } },
+		{ Attribute = { Intensity = tab.is_active and "Bold" or "Normal" } },
+		{ Text = " " .. icon .. " " .. title .. " " },
+		"ResetAttributes",
+		{ Background = { Color = edge_background } },
+		{ Foreground = { Color = edge_foreground } },
+		{ Text = wezterm.nerdfonts.pl_left_hard_divider or "" },
+	}
+end
+
 -- 直前コマンドの Output をコピーモードで選択（範囲を見てから Ctrl+Shift+C 等でコピー）
 -- 一発クリップボードは使わない。シェル連携（OSC 133）必須。
 -- https://wezterm.org/shell-integration.html
@@ -288,6 +377,10 @@ wezterm.on("select-last-output-in-copy-mode", function(window, pane)
 			p
 		)
 	end)
+end)
+
+wezterm.on("format-tab-title", function(tab, tabs, panes, config, hover, max_width)
+	return format_tab_title(tab, hover, max_width)
 end)
 
 wezterm.on("select-color-scheme", function(window, pane)
@@ -368,6 +461,7 @@ config.enable_tab_bar = true
 config.use_fancy_tab_bar = true
 config.hide_tab_bar_if_only_one_tab = false -- タブバーを常に表示（ドラッグで移動するため）
 config.tab_bar_at_bottom = false
+config.tab_max_width = 32
 
 config.colors = build_theme_overrides(active_scheme)
 
