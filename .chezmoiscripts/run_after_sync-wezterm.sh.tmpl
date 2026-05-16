@@ -1,22 +1,37 @@
 #!/bin/sh
 set -eu
 
-src="{{ .chezmoi.sourceDir }}/dot_config/wezterm/wezterm.lua"
-dst="/mnt/c/Users/{{ .win_user }}/.wezterm.lua"
+src_dir="{{ .chezmoi.sourceDir }}/dot_config/wezterm"
+dst_home="/mnt/c/Users/{{ .win_user }}"
+dst_config_dir="$dst_home/.config/wezterm"
+src_wezterm="$src_dir/wezterm.lua"
+src_themes="$src_dir/themes.lua"
+dst_wezterm="$dst_home/.wezterm.lua"
+dst_themes="$dst_config_dir/themes.lua"
 
-if [ ! -f "$src" ]; then
-  echo "wezterm sync skipped: source not found: $src" >&2
+if [ ! -f "$src_wezterm" ]; then
+  echo "wezterm sync skipped: source not found: $src_wezterm" >&2
   exit 0
 fi
 
-if [ ! -d "$(dirname "$dst")" ]; then
-  echo "wezterm sync skipped: destination directory not found: $(dirname "$dst")" >&2
+if [ ! -f "$src_themes" ]; then
+  echo "wezterm sync skipped: source not found: $src_themes" >&2
   exit 0
 fi
 
-if [ -f "$dst" ] && cmp -s "$src" "$dst"; then
+if [ ! -d "$dst_home" ]; then
+  echo "wezterm sync skipped: destination directory not found: $dst_home" >&2
   exit 0
 fi
 
-cp "$src" "$dst"
-echo "synced wezterm config to $dst"
+mkdir -p "$dst_config_dir"
+
+if [ ! -f "$dst_wezterm" ] || ! cmp -s "$src_wezterm" "$dst_wezterm"; then
+  cp "$src_wezterm" "$dst_wezterm"
+  echo "synced wezterm config to $dst_wezterm"
+fi
+
+if [ ! -f "$dst_themes" ] || ! cmp -s "$src_themes" "$dst_themes"; then
+  cp "$src_themes" "$dst_themes"
+  echo "synced wezterm themes to $dst_themes"
+fi
