@@ -294,23 +294,35 @@ local function tab_icon(tab_info)
 	local title = tab_title(tab_info):lower()
 	local domain_name = pane.domain_name or ""
 
-	if domain_name:find("WSL") then
-		return wezterm.nerdfonts.cod_terminal_linux or ""
-	end
-	if process_name:find("vim") or title:find("vim") then
+	-- 1. プロセス名やタイトルからアイコンを決定（優先）
+	if process_name:find("vim") or title:find("vim") or process_name:find("nvim") or title:find("nvim") then
 		return wezterm.nerdfonts.custom_vim or ""
 	end
-	if process_name:find("git") then
+	if process_name:find("git") or title:find("git") then
 		return wezterm.nerdfonts.dev_git or ""
 	end
-	if process_name:find("ssh") then
+	if process_name:find("docker") or title:find("docker") then
+		return wezterm.nerdfonts.md_docker or "󰡨"
+	end
+	if process_name:find("node") or title:find("node") or process_name:find("npm") or title:find("npm") then
+		return wezterm.nerdfonts.md_language_typescript or "󰛦"
+	end
+	if process_name:find("python") or title:find("python") then
+		return wezterm.nerdfonts.dev_python or ""
+	end
+	if process_name:find("ssh") or title:find("ssh") then
 		return wezterm.nerdfonts.md_server_network or "󰒋"
 	end
-	if process_name:find("nu") then
+	if process_name:find("nu") or title:find("nu") then
 		return wezterm.nerdfonts.cod_terminal or ""
 	end
-	if process_name:find("zsh") or process_name:find("bash") then
-		return wezterm.nerdfonts.cod_terminal or ""
+	if process_name:find("zsh") or process_name:find("bash") or title:find("zsh") or title:find("bash") then
+		return wezterm.nerdfonts.dev_terminal or ""
+	end
+
+	-- 2. ドメイン名によるフォールバック（WSLなどはここ）
+	if domain_name:find("WSL") then
+		return wezterm.nerdfonts.cod_terminal_linux or ""
 	end
 	return wezterm.nerdfonts.md_console or "󰞷"
 end
@@ -320,8 +332,6 @@ local function format_tab_title(tab, hover, max_width)
 	local icon = tab_icon(tab)
 	local background = active_scheme.brightBlack
 	local foreground = active_scheme.foreground
-	local edge_background = active_scheme.background
-	local edge_foreground = background
 
 	if tab.is_active then
 		background = active_scheme.purple
@@ -337,22 +347,14 @@ local function format_tab_title(tab, hover, max_width)
 		foreground = active_scheme.white
 	end
 
-	edge_foreground = background
 	local content_width = math.max(1, max_width - 5)
 	title = wezterm.truncate_right(title, content_width)
 
 	return {
-		{ Background = { Color = edge_background } },
-		{ Foreground = { Color = edge_foreground } },
-		{ Text = wezterm.nerdfonts.pl_right_hard_divider or "" },
 		{ Background = { Color = background } },
 		{ Foreground = { Color = foreground } },
 		{ Attribute = { Intensity = tab.is_active and "Bold" or "Normal" } },
 		{ Text = " " .. icon .. " " .. title .. " " },
-		"ResetAttributes",
-		{ Background = { Color = edge_background } },
-		{ Foreground = { Color = edge_foreground } },
-		{ Text = wezterm.nerdfonts.pl_left_hard_divider or "" },
 	}
 end
 
